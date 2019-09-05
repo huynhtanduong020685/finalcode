@@ -1,0 +1,199 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Edit Profile</ion-title>
+    <ion-buttons right>
+      <button ion-button clear (tap)="save()" [disabled]="!user['country'] || !user['city'] || !user['language1']">
+        Save
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <div class="uploads">
+      <img *ngIf="!user['pictures']" [src]="user['picture']" alt="">
+      <ion-slides *ngIf="user['pictures']" pager="true">
+        <ng-container *ngFor="let pic of pictures">
+          <ion-slide *ngIf="pic.length>0">
+            <img [src]="pic" alt="">
+          </ion-slide>
+        </ng-container>
+      </ion-slides>
+      <div class="upload-btn-wrapper">
+        <button class="btn" (click)="loadImage()">Upload a photo</button>
+        <!-- <input type="file" (change)="uploadFile($event)"> -->
+      </div>
+    </div>
+    
+    <div>
+      <ion-label>Country</ion-label>
+      <ion-searchbar [(ngModel)]="user['country']" (ionInput)="filter()" placeholder="Country"></ion-searchbar>
+      <div *ngIf="user['country'] != '' && checkCountry == true">
+        <ion-list class="search-css">
+          <div *ngFor=" let item of filtContry">
+            <ion-item (click)="clickAutocomplete(item)">
+              {{item.country}}, [{{item.city}}]
+            </ion-item>
+          </div>
+        </ion-list>
+      </div>
+    </div>
+    <div>
+      <ion-label>City</ion-label>
+      <ion-searchbar [(ngModel)]="user['city']" (ionInput)="filterCity()" placeholder="city"></ion-searchbar>
+
+      <div *ngIf="user['city'] != '' && checkCity == true">
+        <ion-list class="search-css">
+          <div *ngFor=" let item of filtCity">
+            <ion-item (click)="clickAutocomplete({'city':item.city})">
+              {{item.city}}, [{{item.country}}]
+            </ion-item>
+          </div>
+        </ion-list>
+      </div>
+    </div>
+    <div>
+      <ion-label>Language 1</ion-label>
+      <ion-searchbar [(ngModel)]="user['language1']" (ionInput)="filterLang()" placeholder="language1"></ion-searchbar>
+
+      <div *ngIf="user['language1'] != '' && checkLang1 == true">
+        <ion-list class="search-css">
+          <div *ngFor=" let item of filtLang">
+            <ion-item (click)="clickAutocomplete({'language1':item.lang_name})">
+              {{item.lang_name}}
+            </ion-item>
+          </div>
+        </ion-list>
+      </div>
+      <div *ngIf="user['language1']">
+        <ion-label>Level Language 1</ion-label>
+        <md-radio-group [(ngModel)]="user['lvLanguage1']" value="levelLanguage1">
+          <radio value="Level 1">Level 1</radio>
+          <radio value="Level 2">Level 2</radio>
+          <radio value="Level 3">Level 3</radio>
+          <radio value="Level 4">Level 4</radio>
+          <radio value="Level 5">Level 5</radio>
+        </md-radio-group>
+      </div>
+
+    </div>
+    <div *ngIf="user['language1']">
+      <ion-label>Language 2 </ion-label>
+      <ion-searchbar [(ngModel)]="user['language2']" (ionInput)="filterLang2()" placeholder="language2"></ion-searchbar>
+
+      <div *ngIf="user['language2'] != '' && checkLang2 == true">
+        <ion-list class="search-css">
+          <div *ngFor=" let item of filtLang">
+            <ion-item (click)="clickAutocomplete({'language2':item.lang_name})">
+              {{item.lang_name}}
+            </ion-item>
+          </div>
+        </ion-list>
+      </div>
+      <div *ngIf="user['language2']">
+        <ion-label>Level Language 2</ion-label>
+        <md-radio-group [(ngModel)]="user['lvLanguage2']" value="levelLanguage2">
+          <radio value="Level 1">Level 1</radio>
+          <radio value="Level 2">Level 2</radio>
+          <radio value="Level 3">Level 3</radio>
+          <radio value="Level 4">Level 4</radio>
+          <radio value="Level 5">Level 5</radio>
+        </md-radio-group>
+      </div>
+    </div>
+    <div *ngIf="user['language2']">
+      <ion-label>Language 3 </ion-label>
+      <ion-searchbar [(ngModel)]="user['language3']" (ionInput)="filterLang3()" placeholder="language3"></ion-searchbar>
+
+      <div *ngIf="user['language3'] != '' && checkLang3 == true">
+        <ion-list class="search-css">
+          <div *ngFor=" let item of filtLang">
+            <ion-item (click)="clickAutocomplete({'language3':item.lang_name})">
+              {{item.lang_name}}
+            </ion-item>
+          </div>
+        </ion-list>
+      </div>
+      <div *ngIf="user['language3']">
+        <ion-label>Level Language 3</ion-label>
+        <md-radio-group [(ngModel)]="user['lvLanguage3']" value="levelLanguage3">
+          <radio value="Level 1">Level 1</radio>
+          <radio value="Level 2">Level 2</radio>
+          <radio value="Level 3">Level 3</radio>
+          <radio value="Level 4">Level 4</radio>
+          <radio value="Level 5">Level 5</radio>
+        </md-radio-group>
+      </div>
+    </div>
+    <div *ngIf="user['language3']">
+      <ion-label>Language 4 </ion-label>
+      <ion-searchbar [(ngModel)]="user['language4']" (ionInput)="filterLang4()" placeholder="language4"></ion-searchbar>
+
+      <div *ngIf="user['language4'] != '' && checkLang4 == true">
+        <ion-list class="search-css">
+          <div *ngFor=" let item of filtLang">
+            <ion-item (click)="clickAutocomplete({'language4':item.lang_name})">
+              {{item.lang_name}}
+            </ion-item>
+          </div>
+        </ion-list>
+      </div>
+      <div *ngIf="user['language4']">
+        <ion-label>Level Language 4</ion-label>
+        <md-radio-group [(ngModel)]="user['lvLanguage4']" value="levelLanguage4">
+          <radio value="Level 1">Level 1</radio>
+          <radio value="Level 2">Level 2</radio>
+          <radio value="Level 3">Level 3</radio>
+          <radio value="Level 4">Level 4</radio>
+          <radio value="Level 5">Level 5</radio>
+        </md-radio-group>
+      </div>
+    </div>
+
+    <div>
+        <ion-card>
+              <ion-label>Type of Member</ion-label>
+              <md-radio-group [(ngModel)]="user['typeMember']" value="typeMember">
+                <radio value="true" placeholder="Select Guide Fee.">Guide</radio>
+                <radio value="false">Only Visitor</radio>
+              </md-radio-group>
+              <div *ngIf="user['typeMember']==='true'" (click)="openPicker()">
+                <ion-label fixed>Guide Fee</ion-label>
+                <ion-item>
+                  <ion-input [(ngModel)]="user['guide_fee']" disabled></ion-input>
+                </ion-item>
+              </div>
+        </ion-card>
+    </div>
+    <ion-card>
+        <ion-row>
+          <ion-col>
+              <ion-label>Meet at Airport?</ion-label>
+          </ion-col>
+          <ion-col>
+              <ion-item>
+                <ion-select class="possoble" [(ngModel)]="user['meet_at_airport']">
+                  <ion-option value="true">possible</ion-option>
+                  <ion-option value="false">impossible</ion-option>
+                </ion-select>
+              </ion-item>
+            </ion-col>
+      </ion-row>
+    </ion-card>
+    <ion-card>
+        <ion-label>Interest</ion-label>
+      <ion-item>
+      <ion-input [(ngModel)]="user['interest']" (tap)="presentAlertCheckbox()" placeholder="Select your interest"
+        disabled></ion-input>
+      </ion-item>
+    </ion-card>
+    <ion-card>
+        <ion-label>Introduction</ion-label>
+      <ion-item>
+      <ion-textarea rows="3" [(ngModel)]="user['introduction']"
+        placeholder="Please introduce yourself to over 100 characters."></ion-textarea>
+        </ion-item>
+    </ion-card>
+  </ion-list>
+</ion-content>
